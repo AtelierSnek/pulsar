@@ -11,21 +11,29 @@ import pulsar.creature.BodyPart
 /// Structural Definitions ///
 sealed abstract class Overseer[I : ID, C](){
   val gen : IDGenerator[I]
-  val overseen: Iterable[(I, C)]
+  val overseen: Vector[(I, C)]
   val actionQ: Seq[Event] = Seq.empty
 
+  type Action = (I, C => C)
+
+
   enum Event:
-    case EAction(target: I, action: C => C) extends Event
-    case EDone extends Event
+    case Actions(x: Action, xs: Event) extends Event //You ever just cons-list?
+    case Done extends Event
 
-  //TODO: Figure out why this isn't finding stuff
-//  def applyEvent[I, C](it: C, e: Event) : C = e match {
-//    case EAction(t, a)  => a(it)
-//    case EDone          => it
-//  }
-}
+    def hasMore : Boolean = this match
+      case Actions(_, _) => true
+      case Done => false
 
 
+  lazy val applyEvents : Overseer[I, C] => Event => Overseer[I, C] = o => { //match on Event
+    case Event.Actions(x, xs) => o.overseen.find(f => x._1 == f._1) match
+        case Some (id, member) => ???
+        case None => applyEvents(o)(xs) //TODO: Make this return an error
+
+
+    case Event.Done => o
+  }
 
 /// Concrete Definitions ///
 
