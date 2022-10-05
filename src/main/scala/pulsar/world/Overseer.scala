@@ -5,6 +5,7 @@ package pulsar.world
 import pulsar.lib.ID
 import pulsar.lib.IDGenerator
 import pulsar.lib.ID.*
+import pulsar.lib.IterableExtensions.findIndex
 import pulsar.item.Item
 import pulsar.creature.BodyPart
 
@@ -27,8 +28,11 @@ sealed abstract class Overseer[I : ID, C]() {
 
 
   lazy val applyEvents: Overseer[I, C] => Event => Overseer[I, C] = o => { //match on Event
-    case Event.Actions(x, xs) => o.overseen.find(f => x._1 == f._1) match
-      case Some(id, member) => ???
+    case Event.Actions(x, xs) => o.overseen.findIndex(f => x._1 == f._1) match
+      case Some(idx,(id, member)) => {
+        val o_new = new Overseer[I,C]() //Can't do this
+        applyEvents(o_new)(xs)
+      }
       case None => applyEvents(o)(xs) //TODO: Make this return an error
 
 
@@ -36,6 +40,7 @@ sealed abstract class Overseer[I : ID, C]() {
   }
 
 }
+
 /// Concrete Definitions ///
 
 case class ItemOverseer() extends Overseer[ItemID, Item] {
