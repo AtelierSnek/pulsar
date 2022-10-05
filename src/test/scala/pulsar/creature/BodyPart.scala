@@ -3,12 +3,12 @@ package pulsar.creature
 
 import pulsar.creature.*
 import pulsar.lib.Corporeal
-import pulsar.lib.IDs.BodyPartID
+import pulsar.lib.ID.BodyPartID
 
 import squants.{Mass, Volume}
 
-open case class BodyPart(id: BodyPartID, m: Mass, v: Volume, sub: List[BodyPart] = List.empty,
-                         senses: List[Sense] = List.empty)
+open case class BodyPart(id: BodyPartID, m: Mass, v: Volume, sub: List[BodyPart] = List.empty)//,
+//                         senses: List[Sense] = List.empty)
 
 given Corporeal[BodyPart] with
   extension(b: BodyPart)
