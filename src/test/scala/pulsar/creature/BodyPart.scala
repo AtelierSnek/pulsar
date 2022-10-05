@@ -1,7 +1,7 @@
 package lgbt.tech.tammy
 package pulsar.creature
 
-import pulsar.creature.Sense
+import pulsar.creature.*
 import pulsar.lib.Corporeal
 import pulsar.lib.IDs.BodyPartID
 
