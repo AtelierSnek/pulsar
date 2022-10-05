@@ -2,7 +2,7 @@ package lgbt.tech.tammy
 package pulsar.item
 
 import squants.{Mass, Volume}
-import pulsar.lib.{Corporeal, Overseeable}
+import pulsar.lib.{Corporeal}
 import pulsar.lib.ID.ItemID
 
 trait Item {
