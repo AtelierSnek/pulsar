@@ -8,8 +8,8 @@ import pulsar.lib.ID.given
 
 @main
 def main(): Unit = {
-  val iO = Overseer.ItemOverseer(new IDGenerator[ItemID](ItemID(0)),Seq.empty)
-  val bO = Overseer.BodyPartOverseer(new IDGenerator[BodyPartID](BodyPartID(0)),Seq.empty)
+  val iO = Overseer.ItemOverseer(IDGenerator(ItemID(0)),Seq.empty)
+  val bO = Overseer.BodyPartOverseer(IDGenerator(BodyPartID(0)),Seq.empty)
   var w = World(iO, bO)
   println("Hello world!")
 
