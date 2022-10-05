@@ -2,21 +2,26 @@ package lgbt.tech.tammy
 package pulsar.world
 
 
-import pulsar.lib.ID
-import pulsar.lib.IDGenerator
+import pulsar.lib.{ID, IDGenerator, Overseeable}
 import pulsar.lib.ID.*
 import pulsar.lib.IterableExtensions.findIndex
 import pulsar.item.Item
 import pulsar.creature.BodyPart
 
-/// Structural Definitions ///
-sealed abstract class Overseer[I : ID, C]() {
-  val gen: IDGenerator[I]
-  val overseen: Vector[(I, C)]
-  val actionQ: Seq[Event] = Seq.empty
+
+enum Overseer[I: ID, C]:
+  case ItemOverseer(val gen: IDGenerator[ItemID], val overseen: Seq[(ItemID,Item)],
+                    val actionQ: Seq[Event] = Seq.empty)
+    extends Overseer[ItemID, Item]
+  case BodyPartOverseer(val gen: IDGenerator[BodyPartID], val overseen: Seq[(BodyPartID, BodyPart)],
+                        val actionQ: Seq[Event] = Seq.empty)
+    extends Overseer[BodyPartID, BodyPart]
+
+  def overseen[I: ID, C: Overseeable]: Seq[(ItemID,Item)] | Seq[(BodyPartID,BodyPart)] = this match //Why can't this type annotation be Seq[(I,C)] ?
+    case ItemOverseer(_, o) => o
+    case BodyPartOverseer(_, o) => o
 
   type Action = (I, C => C)
-
 
   enum Event:
     case Actions(x: Action, xs: Event) extends Event //You ever just cons-list?
@@ -27,29 +32,24 @@ sealed abstract class Overseer[I : ID, C]() {
       case Done => false
 
 
-  lazy val applyEvents: Overseer[I, C] => Event => Overseer[I, C] = o => { //match on Event
-    case Event.Actions(x, xs) => o.overseen.findIndex(f => x._1 == f._1) match
-      case Some(idx,(id, member)) => {
-        val o_new = new Overseer[I,C]() //Can't do this
-        applyEvents(o_new)(xs)
-      }
-      case None => applyEvents(o)(xs) //TODO: Make this return an error
+
+object Overseer {
 
 
-    case Event.Done => o
-  }
 
 }
 
-/// Concrete Definitions ///
 
-case class ItemOverseer() extends Overseer[ItemID, Item] {
-  val gen: IDGenerator[ItemID] = IDGenerator[ItemID](ItemID(0))
-  val overseen: Vector[(ItemID, Item)] = Vector.empty
-}
-
-case class BodyPartOverseer() extends Overseer[BodyPartID, BodyPart] {
-  val gen: IDGenerator[BodyPartID] = IDGenerator[BodyPartID](BodyPartID(0))
-  val overseen: Vector[(BodyPartID, BodyPart)] = Vector.empty
-}
-
+//  lazy val applyEvents: Overseer[I, C] => Event => Overseer[I, C] = o => { //match on Event
+//    case Event.Actions(x, xs) => o.overseen.findIndex(f => x._1 == f._1) match
+//      case Some(idx,(id, member)) => {
+//        val o_new = o match
+//          case ItemOverseer() => ItemOverseer()
+//          case BodyPartOverseer() => BodyPartOverseer()
+//        applyEvents(o_new)(xs)
+//      }
+//      case None => applyEvents(o)(xs) //TODO: Make this return an error
+//
+//
+//    case Event.Done => o
+//  }
