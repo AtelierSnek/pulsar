@@ -4,7 +4,7 @@ ThisBuild / scalaVersion := "3.1.2"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "pulsar",
+    name := "lgbt/tech/tammy/pulsar",
     idePackagePrefix := Some("lgbt.tech.tammy"),
     libraryDependencies ++= Seq(
       "org.typelevel"  %% "squants"  % "1.8.3"
@@ -18,7 +18,7 @@ lazy val root = (project in file("."))
       "-new-syntax",
       "-print-lines",
       "-unchecked",
-      "-language:strictEquality",
+      //"-language:strictEquality",
       "-language:postfixOps",
       "-Yexplicit-nulls"
     )
