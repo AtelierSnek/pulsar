@@ -15,4 +15,10 @@ object IterableExtensions {
       }
       None
   }
+  extension [A] (s: Seq[A])
+    def dropIndex(idx: Int) : Seq[A] = {
+      val left  = s.take(idx)
+      val right = s.takeRight(s.size - idx - 1)
+      left.concat(right)
+    }
 }
