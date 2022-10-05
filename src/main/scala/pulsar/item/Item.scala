@@ -9,6 +9,7 @@ trait Item extends Overseeable[ItemID] {
 
   lazy val v: Volume
   lazy val m: Mass
+  val uid: ItemID
 
   given Corporeal[Item] with
     extension(i: Item)
