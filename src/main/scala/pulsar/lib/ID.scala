@@ -15,9 +15,9 @@ enum ID[I]:
 
   //Ordering instances
 
-  object IDOrdering extends Ordering[ID[_]]:
-    def compare(x: ID[_], y: ID[_]): Int = (x, y) match {
-      case (ItemID(x), ItemID(y)) => Ordering[Int].compare(x,y)
-      case (BodyPartID(x), BodyPartID(y)) => Ordering[Int].compare(x,y)
-      case (_ , _) => ??? //Scream and yell
-    }
+object IDOrdering extends Ordering[ID[_]]:
+  def compare(x: ID[_], y: ID[_]): Int = (x, y) match {
+    case (ItemID(x), ItemID(y)) => Ordering[Int].compare(x,y)
+    case (BodyPartID(x), BodyPartID(y)) => Ordering[Int].compare(x,y)
+    case (_ , _) => ??? //Scream and yell
+  }

@@ -2,7 +2,7 @@ package lgbt.tech.tammy
 package pulsar.world
 
 
-import pulsar.lib.{Event, ID, IDGenerator, Overseeable}
+import pulsar.lib.{Event, ID, IDGenerator}
 import pulsar.lib.ID.*
 import pulsar.lib.IterableExtensions.findIndex
 import pulsar.item.Item
@@ -58,9 +58,6 @@ enum Overseer[I <: ID[_], C]:
   }
 
 object Overseer {
-//  if (ItemID(3) < ItemID(4)) then {
-//
-//  }
 
 }
 
