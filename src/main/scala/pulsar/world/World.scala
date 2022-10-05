@@ -7,11 +7,10 @@ import pulsar.world.Overseer.{BodyPartOverseer, ItemOverseer}
 import pulsar.lib.ID.*
 import pulsar.lib.ID.given
 import pulsar.lib.IDGenerator
+import pulsar.creature.BodyPart
 
 
-case class World(iO : ItemOverseer, bO : BodyPartOverseer) {
-//  private val iO = Overseer.ItemOverseer(new IDGenerator[ItemID](ItemID(0)),Seq.empty)
-//  private val bO = Overseer.BodyPartOverseer(new IDGenerator[BodyPartID](BodyPartID(0)),Seq.empty)
+case class World(iO : Overseer[ItemID,Item], bO : Overseer[BodyPartID,BodyPart]) {
   val world: Set[Overseer[?, ?]] = Set(iO, bO)
 }
 

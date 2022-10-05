@@ -7,7 +7,7 @@ import pulsar.creature.Sense
 import pulsar.lib.{Corporeal, Overseeable}
 
 open case class BodyPart(id: BodyPartID, m: Mass, v: Volume, sub: Vector[BodyPart] = Vector.empty,
-                         senses: Vector[Sense[?]] = Vector.empty) extends Overseeable[BodyPartID]
+                         senses: Vector[Sense[_]] = Vector.empty) extends Overseeable[BodyPartID]
 
 given Corporeal[BodyPart] with
   extension(b: BodyPart)
