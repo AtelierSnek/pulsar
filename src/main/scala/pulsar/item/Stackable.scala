@@ -9,7 +9,10 @@ trait Stackable(ms: Int) {
     if n > inStack then None else Some(newStack(n),newStack(inStack - n))
   }
 
-  lazy val combineStacks: (Stackable, Stackable) => Stackable = (s1, s2) => newStack(s1.inStack + s2.inStack)
+  lazy val combineStacks: (Stackable, Stackable) => Option[Stackable] = (s1, s2) => {
+    val total = s1.inStack + s2.inStack
+    if total > ms then None else Some(newStack(total))
+  }
 
 
 }
