@@ -9,8 +9,8 @@ import pulsar.item.Item
 import pulsar.creature.BodyPart
 
 /// Structural Definitions ///
-sealed abstract class Overseer[I : ID, C](){
-  val gen : IDGenerator[I]
+sealed abstract class Overseer[I : ID, C]() {
+  val gen: IDGenerator[I]
   val overseen: Vector[(I, C)]
   val actionQ: Seq[Event] = Seq.empty
 
@@ -21,20 +21,21 @@ sealed abstract class Overseer[I : ID, C](){
     case Actions(x: Action, xs: Event) extends Event //You ever just cons-list?
     case Done extends Event
 
-    def hasMore : Boolean = this match
+    def hasMore: Boolean = this match
       case Actions(_, _) => true
       case Done => false
 
 
-  lazy val applyEvents : Overseer[I, C] => Event => Overseer[I, C] = o => { //match on Event
+  lazy val applyEvents: Overseer[I, C] => Event => Overseer[I, C] = o => { //match on Event
     case Event.Actions(x, xs) => o.overseen.find(f => x._1 == f._1) match
-        case Some (id, member) => ???
-        case None => applyEvents(o)(xs) //TODO: Make this return an error
+      case Some(id, member) => ???
+      case None => applyEvents(o)(xs) //TODO: Make this return an error
 
 
     case Event.Done => o
   }
 
+}
 /// Concrete Definitions ///
 
 case class ItemOverseer() extends Overseer[ItemID, Item] {
