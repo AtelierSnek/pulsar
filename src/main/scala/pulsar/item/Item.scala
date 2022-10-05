@@ -5,7 +5,7 @@ import squants.{Mass, Volume}
 import pulsar.lib.{Corporeal, Overseeable}
 import pulsar.lib.ID.ItemID
 
-trait Item extends Overseeable[ItemID] {
+trait Item {
 
   lazy val v: Volume
   lazy val m: Mass
