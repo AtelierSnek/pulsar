@@ -4,10 +4,10 @@ package pulsar.creature
 import squants.{Mass, Volume}
 import pulsar.lib.ID.BodyPartID
 import pulsar.creature.Sense
-import pulsar.lib.Corporeal
+import pulsar.lib.{Corporeal, Overseeable}
 
 open case class BodyPart(id: BodyPartID, m: Mass, v: Volume, sub: Vector[BodyPart] = Vector.empty,
-                         senses: Vector[Sense[?]] = Vector.empty)
+                         senses: Vector[Sense[?]] = Vector.empty) extends Overseeable[BodyPartID]
 
 given Corporeal[BodyPart] with
   extension(b: BodyPart)
