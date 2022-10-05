@@ -1,7 +1,8 @@
 package lgbt.tech.tammy
 package pulsar.creature
 
-import squants.{Quantity,Length}
+import squants.{Quantity,Length,LuminousIntensity}
+import squants.photo.Lumens
 
 /**
  *
@@ -10,16 +11,10 @@ import squants.{Quantity,Length}
 open case class Sense[A <: Quantity[A]](minDetectable: A, maxDetectable: A, temporaryHarm: A,
                                         permanentHarm: A){
 
-  val minDetect: A = minDetectable
-  val maxDetect: A = maxDetectable
-  val tempHarm:  A = temporaryHarm
-  val permHarm:  A = permanentHarm
-
-
   lazy val decay: A => Length => A = q => d => q / (d.value * d.value)
 
   lazy val isVisible: A => Boolean = q => {
-    if q >= minDetect && q < maxDetect then true else false
+    if q >= minDetectable && q < maxDetectable then true else false
   }
 
 }
