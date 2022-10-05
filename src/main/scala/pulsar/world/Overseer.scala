@@ -17,13 +17,7 @@ enum Overseer[I: ID, C]:
                         val actionQ: Seq[Event[BodyPartID,BodyPart]] = Seq.empty)
     extends Overseer[BodyPartID, BodyPart]
 
-//  def overseen: Seq[(ItemID,Item)] | Seq[(BodyPartID,BodyPart)] = this match
-//    case ItemOverseer(_, o, _) => o
-//    case BodyPartOverseer(_, o, _) => o
-
 object Overseer {
-
-
 
 }
 

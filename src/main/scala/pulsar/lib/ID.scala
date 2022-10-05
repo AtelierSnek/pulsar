@@ -43,3 +43,31 @@ object ID:
   //CanEqual Instances
   given CanEqual[ItemID,ItemID] = CanEqual.derived
   given CanEqual[BodyPartID,BodyPartID] = CanEqual.derived
+
+
+//  //Ordering instances
+//  object IIDOrdering extends Ordering[ItemID]:
+//    import pulsar.lib.ID.given_ID_ItemID.unID
+//    def compare(x: ItemID | Null, y: ItemID | Null): Int = (x,y) match {
+//      case (null, null) => 0
+//      case (null, _) => -1
+//      case (_, null) => +1
+//      case (x: ItemID,y: ItemID) => Ordering[Int].compare(unID(x),unID(y))
+//    }
+////    @targetName("compare_IID")
+////    def compare(x: ItemID, y: ItemID): Int = {
+////      Ordering[Int].compare(unID(x),unID(y))
+////    }
+//
+//  object BIDOrdering extends Ordering[BodyPartID]:
+//    import pulsar.lib.ID.given_ID_BodyPartID.unID
+//    def compare(x: BodyPartID | Null, y: BodyPartID | Null): Int = (x,y) match {
+//      case (null, null) => 0
+//      case (null, _) => -1
+//      case (_, null) => +1
+//      case (x: BodyPartID,y: BodyPartID) => Ordering[Int].compare(unID(x),unID(y))
+//    }
+////    @targetName("compare_BID")
+////    def compare(x: BodyPartID, y: BodyPartID): Int = {
+////      Ordering[Int].compare(unID(x),unID(y))
+////    }
